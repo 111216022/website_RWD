@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renee's Blog</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入外部 CSS -->
+    <link href="styles.css" rel="stylesheet">
+    <!-- 引入支持中文的 Google Fonts 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 設定全局字體、行高、邊距、內距與背景色 */
+        body {
+            font-family: 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif; /* 設置支持中英文的字體 */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #ebfafe;
+        }
+
+    
+        /* 設定頁首樣式 */
+        header {
+            background: linear-gradient(135deg, #c4f4ff, #fcc3fc); /* 使用線性漸層背景 */
+            color: rgb(54, 54, 54); /* 設定文字顏色 */
+            text-align: center; /* 文字置中對齊 */
+            padding: 1.5rem 0; /* 上下內距為 1.5rem，左右為 0 */
+        }
+    
+        /* 設定導航欄樣式 */
+        nav {
+            margin: 1rem 0; /* 導航欄上下外距為 1rem */
+        }
+    
+        /* 設定導航欄中的連結樣式 */
+        nav a {
+            color: white; /* 連結文字顏色為白色 */
+            margin: 0 1rem; /* 左右外距為 1rem */
+            text-decoration: none; /* 移除底線 */
+            font-weight: bold; /* 設定字體為粗體 */
+        }
+    
+        /* 設定滑鼠懸停時的導航連結樣式 */
+        nav .dropdown-menu a:hover {
+            background-color: #e3c5ff; /* 設定懸停背景顏色為淡紫色 */
+            color: #333; /* 設定懸停文字顏色為深灰色 */
+        }
+
+        /* 導航按鈕基礎樣式 */
+        .navbar .nav-link {
+            color: #333; /* 導航按鈕文字顏色 */
+            background-color: transparent; /* 預設背景為透明 */
+            border: 1px solid transparent; /* 無邊框 */
+            padding: 0.5rem 1rem; /* 按鈕內距 */
+            border-radius: 0.5rem; /* 設定圓角 */
+            transition: all 0.3s ease; /* 添加平滑過渡效果 */
+        }
+
+        /* 滑鼠懸停時的導航按鈕樣式 */
+        .navbar .nav-link:hover {
+            background-color: #fcfbfc; /* 背景顏色 */
+            color: rgb(45, 42, 42); /* 文字顏色 */
+            border-color: #fefefe; /* 添加邊框顏色 */
+        }
+
+        /* 點擊（active）時的導航按鈕樣式 */
+        .navbar .nav-link.active {
+            background-color: #0056b3; /* 背景顏色變為深藍 */
+            color: white; /* 文字顏色保持白色 */
+            border-color: #0056b3; /* 邊框顏色變為深藍 */
+        }
+
+        /* 聚焦時的導航按鈕樣式 */
+        .navbar .nav-link:focus {
+            box-shadow: 0 0 0 0.2rem rgba(109, 213, 237, 0.5); /* 添加聚焦邊框陰影 */
+        }
+
+        /* 導航按鈕在小螢幕時的樣式 */
+        @media (max-width: 768px) {
+            .navbar .nav-link {
+                display: block; /* 按鈕設為塊級元素 */
+                margin: 0.5rem 0; /* 上下外距 */
+            }
+        }
+        
+        /* 設定主內容區塊的內距 */
+        main {
+            padding: 2rem 5%; /* 上下內距為 2rem，左右為頁面寬度的 5% */
+        }
+    
+        /* 設定標題文字顏色與樣式 */
+        h2 {
+            color: #131212; /* 設定文字顏色 */
+            display: inline-block; /* 顯示為行內區塊 */
+            padding-bottom: 0.5rem; /* 底部內距為 0.5rem */
+        }
+    
+        /* 設定圖片樣式 */
+        img {
+            max-width: 100%; /* 確保圖片寬度不超過容器 */
+            height: auto; /* 按比例縮放圖片高度 */
+            display: block; /* 將圖片設為區塊元素 */
+            margin: 1rem auto; /* 上下外距為 1rem，水平居中 */
+            border-radius: 15px; /* 設定圓角為 15px */
+        }
+    
+        /* 設定圓形圖片樣式 */
+        img.circle-img {
+            width: 50px; /* 圖片寬度為 350px */
+            height: 350px; /* 圖片高度為 350px */
+            border-radius: 50%; /* 將圖片裁剪為圓形 */
+            object-fit: cover; /* 裁剪圖片以適合容器大小 */
+        }
+    
+        /* 設定照片集樣式 */
+        .photo-gallery {
+            display: flex; /* 使用 Flex 排版 */
+            flex-wrap: wrap; /* 超過容器寬度時換行 */
+            gap: 1rem; /* 元素之間的間距為 1rem */
+            justify-content: center; /* 將內容水平置中對齊 */
+        }
+    
+        /* 設定每個圖片區塊樣式 */
+        .photo-gallery figure {
+            flex: 1 1 calc(50% - 1rem); /* 每個區塊寬度為容器的一半減去間距 */
+            text-align: center; /* 文字置中對齊 */
+        }
+    
+        /* 設定文章樣式 */
+        article {
+            margin-bottom: 2rem; /* 底部外距為 2rem */
+            background: #fff; /* 背景顏色為白色 */
+            padding: 1.5rem; /* 內距為 1.5rem */
+            border-radius: 10px; /* 設定圓角為 10px */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+        }
+    
+        /* 設定表格樣式 */
+        table {
+            width: 100%; /* 設定表格寬度為 100% */
+            margin-top: 1rem; /* 表格上方外距為 1rem */
+            border-collapse: collapse; /* 合併表格邊框 */
+        }
+    
+        /* 設定表格邊框樣式 */
+        table, th, td {
+            border: 1px solid #afdff4; /* 邊框顏色為淺灰色 */
+        }
+    
+        /* 設定表格儲存格內距與對齊 */
+        th, td {
+            padding: 0.75rem; /* 內距為 0.75rem */
+            text-align: center; /* 文字置中對齊 */
+        }
+    
+        /* 設定表頭樣式 */
+        th {
+            background-color: #9ce9fa; /* 表頭背景顏色為淺藍色 */
+            color: rgb(38, 41, 41); /* 表頭文字顏色為白色 */
+        }
+    
+        /* 設定頁尾樣式 */
+        footer {
+            text-align: center; /* 文字置中對齊 */
+            background-color: #edddfb; /* 背景顏色為淡紫色 */
+            color: rgb(0, 0, 0); /* 文字顏色為黑色 */
+            padding: 1rem 0; /* 上下內距為 1rem，左右為 0 */
+            margin-top: 2rem; /* 上方外距為 2rem */
+        }
+    
+        /* 設定段落文字樣式 */
+        p {
+            font-size: 1.1rem; /* 設定文字大小為 1.1rem */
+            line-height: 1.8; /* 設定行距為 1.8 */
+        }
+    
+        /* 設定按鈕區塊樣式 */
+        .button-divider {
+            margin: 1.5rem 0; /* 上下外距為 1.5rem */
+            text-align: center; /* 內容置中對齊 */
+        }
+        /* 按鈕基礎樣式 */
+        .btn-outline-primary {
+            color: #333; /* 按鈕文字顏色 */
+            border-color: #538cf7; /* 按鈕邊框顏色 */
+        }
+
+        /* 滑鼠懸停時的按鈕樣式 */
+        .btn-outline-primary:hover {
+            background-color: #9acefc; /* 背景顏色改為淺藍 */
+            color: rgb(32, 31, 31); /* 文字顏色 */
+            border-color: #9acefc; /* 保持邊框顏色一致 */
+        }
+
+        /* 點擊時的按鈕樣式 */
+        .btn-outline-primary:active {
+            background-color: #0056b3; /* 背景顏色變為深藍色 */
+            color: white; /* 文字顏色保持白色 */
+            border-color: #0056b3; /* 邊框顏色改為深藍 */
+        }
+
+    
+        /* 響應式設計：窄螢幕時的樣式 */
+        @media (max-width: 768px) {
+            /* 導航連結改為垂直排列 */
+            nav a {
+                display: block; /* 將連結設為區塊元素 */
+                margin: 0.5rem 0; /* 上下外距為 0.5rem */
+            }
+    
+            /* 主內容內距減小 */
+            main {
+                padding: 1rem; /* 內距為 1rem */
+            }
+    
+            /* 圓形圖片尺寸縮小 */
+            img.circle-img {
+                width: 200px; /* 圖片寬度縮小為 200px */
+                height: 200px; /* 圖片高度縮小為 200px */
+            }
+    
+            /* 圖片集中的圖片改為單列排列 */
+            .photo-gallery figure {
+                flex: 1 1 100%; /* 每個區塊寬度為容器 100% */
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- 頁首區 -->
+     <header>
+        <h1>曹禾芊的個人部落格</h1>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section1">關於我</a></li>
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section2">學經歷</a></li>
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section3">活動經歷</a></li>
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section4">興趣愛好</a></li>
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section5">視訊作品</a></li>
+                        <li class="nav-item"><a class="btn btn-primary nav-link" href="#section6">更多資訊</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+     </header>
+    <!-- 主內容 -->
+     <main>
+        <!-- 個人介紹 -->
+        <article id="section1">
+            <header>
+                <h2>關於我</h2>
+                <p>大家好～我是曹禾芊！來自國立臺北教育大學資訊科學系。</p>
+            </header>
+            <section>
+                <img src="assets/images/renee.png" class="circle-img" alt="禾芊的個人照">
+                <p>
+                    <em><strong><a href="https://www.ntue.edu.tw/">國立台北教育大學</a></strong> 學生</em>
+                </p>
+                <p>
+                    高中時期的學習經歷，不僅奠定了我對資訊科技的基礎，也啟發了我對這個領域的濃厚興趣。因此，我選擇了資訊科學系。
+                    未來，我希望能投身於 <mark>資訊安全</mark> 領域，致力於保護數位世界的穩定與安全。
+                </p>
+            </section>
+        </article>
+
+        <!-- 學經歷 -->
+        <article id="section2">
+            <header>
+                <h2>學經歷</h2>
+            </header>
+            <img src="assets/images/S__1606.jpg" alt="禾芊的團體照">
+            <p>在高中時，我積極參與資訊科技相關的活動與比賽，並透過這些實踐累積了經驗。高二時，我有幸參加了<mark>女婕思比賽</mark>，這是一場聚焦於資訊安全的競賽。<br>
+                在參與過程中，啟蒙了我對資訊安全的好奇心，也激發了對保護數位世界的使命感。這次經歷成為我選擇大學專業方向的重要契機。<br>
+                未來，我希望能在資訊安全領域深耕，結合技術與創新應對數位時代的各種挑戰。我相信，透過持續學習和實踐，我將能為這個領域帶來積極的影響。
+        </article>
+
+        <!-- 活動經歷 -->
+        <article id="section3">
+            <header>
+                <h2>活動經歷</h2>
+            </header>
+            <img src="assets/images/S__16.jpg" alt="禾芊的宿營照">
+            <p>我是一個喜歡參與活動的人，而責任感與行動力是性格中最鮮明的一部分。在升上大學一年級時，我加入了系學會的活動部，開始學習如何規劃並執行各種活動。<br>
+                憑藉著對活動的熱情和對細節的負責態度，我在大二時擔任了迎新宿營的總召，帶領團隊成功舉辦這場充滿活力的活動。同時，我也與學姊一同舉辦了系烤活動，並將它記錄成了我的視訊作品。<br>
+                這些經驗讓我不斷成長，也培養了我的領導力與團隊合作精神。</p>
+        </article>
+
+        <!-- 興趣愛好 -->
+        <article id="section4">
+            <header>
+                <h2>興趣愛好</h2>
+                <p>我很喜歡唱歌和跳舞，所以在系上的活動中表演><</p>
+            </header>
+            <p><br>
+                這是本校一年一度的理學院之夜，由資科系與理學院的其他系一同主辦。
+                我參與了其中的兩場表演。還找了系上的同學、熱音社的朋友，和系上的學長一起~</p>
+            <div class="row button-divider">
+                <div class="col-6">
+                    <a href="https://m.youtube.com/watch?si=KeWUsjamz60Z6EIA&v=wDjXeKzlj28&feature=youtu.be" target="_blank" class="btn btn-outline-primary w-100">跳舞的表演影片</a>
+                </div>
+                <div class="col-6">
+                    <a href="https://youtu.be/YZOEsrWv3No?si=h6WjwIVcS4SLs76-" target="_blank" class="btn btn-outline-primary w-100">樂團的表演影片</a>
+                </div>
+            </div>
+            <div class="photo-gallery">
+                <figure>
+                    <img src="assets/images/S__1.jpg" alt="跳舞">
+                    <figcaption>表演跳舞時的結尾動作</figcaption>
+                </figure>
+                <figure>
+                    <img src="assets/images/S__2.jpg" alt="唱歌">
+                    <figcaption>表演唱歌時的側拍照</figcaption>
+                </figure>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>表演能力</th>
+                        <th>評分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>跳舞</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td>唱歌</td>
+                        <td>⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <!-- 視訊作品 -->
+        <article id="section5">
+            <header>
+                <h2>視訊作品</h2>
+            </header>
+            <p>最後跟大家分享我在多媒體課的視訊作品!是我跟學姊一起負責舉辦的系烤~</p>
+            <video controls width="100%">
+                <source src="assets/video/新.系烤.mp4" type="video/mp4">
+                您的瀏覽器不支援影片播放。
+            </video>
+        </article>
+     </main>
+    <!-- 頁尾區 -->
+    <article id="section6">
+        <footer>
+            <p>聯絡我:s111216022@stu.ntue.edu.tw</p>
+            <time datetime="2024-12-17">最後更新日期:2024年12月17日</time>
+        </footer>
+    </article>
+
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
